@@ -14,14 +14,23 @@ Product.belongsTo(Category, {
 });
 
  // Products belongToMany Tags (through ProductTag)
-Product.belongsToMany(ProductTag, {
-  foreignKey: 'tag_id',
+Product.belongsToMany(Tag, {
+  through: {
+    model: ProductTag,
+    unique: false
+  },
+  // Define an alias for when data is retrieved
+  as: 'product_id'
 
 });
  // Tags belongToMany Products (through ProductTag)
-Tag.belongsToMany(ProductTag, {
-  foreignKey: 'product_id',
-    //this might also be tag_id
+Tag.belongsToMany(Product, {
+  through: {
+    model: ProductTag,
+    unique: false
+  },
+  // Define an alias for when data is retrieved
+  as: 'tag_id'
 });
 
 
