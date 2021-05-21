@@ -15,3 +15,8 @@ If you have any questions, please do not hesitate to reach out at alicia.krolak4
 You can find me on GitHub as aliciajk. 
 
 # Screenshots
+
+## User Story
+
+## Acceptance Criteria
+
