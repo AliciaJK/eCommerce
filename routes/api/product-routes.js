@@ -8,7 +8,9 @@ router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   try {
-    const productData = await Product.findAll();
+    const productData = await Product.findAll({
+      include: [{ model: Tag, through: ProductTag }]
+    });
     res.status(200).json(productData);
   } catch (err) {
     res.status(500).json(err);
@@ -23,7 +25,7 @@ router.get('/:id', async (req, res) => {
   try {
     const productData = await Product.findByPk(req.params.id, {
       // JOIN with locations, using the Trip through table
-      include: [{ model: Category, through: Tag, as: 'category_name' }]
+      include: [{ model: Tag, through: ProductTag }]
     });
 
     if (!productData) {
@@ -59,6 +61,7 @@ router.post('/', async (req, res) => {
           };
         });
         return ProductTag.bulkCreate(productTagIdArr);
+        // THIS line above IS INCORRECT 
       }
       // if no product tags, just respond
       res.status(200).json(product);
@@ -133,7 +136,5 @@ router.delete('/:id', async (req, res) => {
 
 
 });
-
-
 
 module.exports = router;

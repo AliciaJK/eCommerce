@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Category, Product } = require('../../models');
+const { Category, Product, ProductTag, Tag } = require('../../models');
 
 // The `/api/categories` endpoint
 
@@ -20,7 +20,7 @@ router.get('/:id', async(req, res) => {
   try {
     const categoryData = await Category.findByPk(req.params.id, {
       // JOIN with travellers, using the Trip through table
-      include: [{ model: Category, through: Product, as: 'category_id' }]
+      include: [{ model: Tag, through: ProductTag }]
     });
 
     if (!categoryData) {
